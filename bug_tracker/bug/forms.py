@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-from bug_tracker.bug.models import Bug
+from .models import bug
 
 
 class UserRegisterForm(UserCreationForm):
@@ -15,5 +15,5 @@ class UserRegisterForm(UserCreationForm):
 
 class BugForm(forms.ModelForm):
     class Meta:
-        model = Bug
+        model = bug
         fields = "__all__"
