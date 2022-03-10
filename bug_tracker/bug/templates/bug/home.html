@@ -1,28 +1,51 @@
 {% extends 'bug/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'bug/css/main.css' %}">
 <div class="container-fluid">
     <div class="row">
         <div class="colmask">
-            <div class="header">
-                header
-            </div>
+            <header>
+                <div class="submit_form">
+                    <form action="addBug/{{bug.id}}" method="POST">
+                        {% csrf_token %}
+                        {{forms|crispy}}
+                        <center>
+                            <input type="submit" class="btn btn-default" value="submit" />
+                        </center>
+                    </form>
+                </div>
+            </header>
             <div class="colmid">
                 <div class="colleft">
                     <div class="col1">
                         mid
                     </div>
                     <div class="col2">
-                        left
+                        {% for bug in todo_list %}
+                        <div class="card">
+                            <center><b>{{bug.title}}</b></center>
+                            <hr />
+                            {{bug.date}}
+                            <hr />
+                            {{bug.body}}
+                            <br />
+                            <br />
+                            <a href="{% url " rem ove" bug.id %}">Delete</a>
+                            <form action="/del/" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+                                {% csrf_token %}
+                                <button value="remove" type="submit" class="btn btn-primary" style="float: right;"><span
+                                        class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
+                            </form>
+                        </div>
+                        {% endfor%}
+
                     </div>
                     <div class="col3">
-                        right
+
                     </div>
                 </div>
-            </div>
-            <div class="footer">
-                footer
             </div>
         </div>
     </div>

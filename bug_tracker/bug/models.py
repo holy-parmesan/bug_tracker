@@ -4,7 +4,7 @@ from django.utils import timezone
 # Create your models here.
 class bug(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField()
+    id = models.AutoField(primary_key=True)
     date = models.DateTimeField(default=timezone.now)
     body = models.TextField()
 
