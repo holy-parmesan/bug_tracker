@@ -9,52 +9,24 @@ from .models import bug
 
 
 def home(request):
-    todo_list = ["foo", "bar", "bah"]
     todo_list = bug.objects.all()
-    if request.method == "POST":
-        form = BugForm(request.POST)
-        if form.is_valid():
-            form.save
-            return redirect("/")
-    form = BugForm()
-    page = {
-        "forms": form,
-        "list": todo_list,
-        "title": "TODO LIST",
-    }
-
-    return render(request, "bug/home.html", page)
+    return render(request, "bug/home.html", {"todo_list": todo_list})
 
 
 def add(request):
     obj = bug()
-    # obj.id = request.POST["id"]
     obj.title = request.POST["title"]
     obj.date = request.POST["date"]
     obj.body = request.POST["body"]
     obj.save()
     mydict = {"todo_list": bug.objects.all()}
     messages.info(request, "item added!!!")
-    # return redirect("/", context=mydict)
     return render(request, "bug/home.html", context=mydict)
-    # if request.method == "POST":
-    #     if "addBug" in request.POST:
-    #         form = BugForm(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #         # title = request.POST["title"]
-    #         # id = request.POST["id"]
-    #         # date = str(request.POST["date"])
-    #         # body = request.POST["body"]
-    #         # single_bug = bug(title=title, id=id, date=date, body=body)
-    #         # single_bug.save()
-    #         return redirect("/")
-    # # item = bug.objects.get()
-    # # item.save()
 
 
 def remove(request, pk):
     item = bug.objects.get(id=pk)
+    item = request.POST[item]
     item.delete()
     mydict = {"todo_list": bug.objects.all()}
     messages.info(request, "item removed!!!")

@@ -16,6 +16,6 @@ urlpatterns = [
         auth_view.LogoutView.as_view(template_name="bug/logout.html"),
         name="logout",
     ),
-    path("addBug/", views.add, name="addBug"),
+    path("addBug/", views.add),
     path("del/<int:pk>", views.remove, name="del"),
 ]
