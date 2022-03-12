@@ -10,7 +10,18 @@ from .models import bug
 
 def home(request):
     todo_list = bug.objects.all()
-    return render(request, "bug/home.html", {"todo_list": todo_list})
+    form = BugForm()
+    if request.method == "POST":
+        form = BugForm(request.POST)
+        if form.is_valid():
+            form.save
+            return redirect("/")
+    page = {
+        "forms": form,
+        "list": todo_list,
+        "title": "TODO LIST",
+    }
+    return render(request, "bug/home.html", page)
 
 
 def add(request):

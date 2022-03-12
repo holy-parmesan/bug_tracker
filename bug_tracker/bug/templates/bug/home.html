@@ -4,19 +4,20 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'bug/css/main.css' %}">
 <div class="container-fluid">
+    <header>
+        <div class="submit_form">
+            <form action="addBug/{{bug.id}}" method="POST">
+                {% csrf_token %}
+                {{forms|crispy}}
+                <center>
+                    <input type="submit" class="btn btn-default" value="submit" />
+                </center>
+            </form>
+        </div>
+    </header>
     <div class="row">
         <div class="colmask">
-            <header>
-                <div class="submit_form">
-                    <form action="addBug/{{bug.id}}" method="POST">
-                        {% csrf_token %}
-                        {{forms|crispy}}
-                        <center>
-                            <input type="submit" class="btn btn-default" value="submit" />
-                        </center>
-                    </form>
-                </div>
-            </header>
+
             <div class="colmid">
                 <div class="colleft">
                     <div class="col1">
