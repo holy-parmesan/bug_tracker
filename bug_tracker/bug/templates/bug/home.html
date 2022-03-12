@@ -32,18 +32,9 @@
                             {{bug.body}}
                             <br />
                             <br />
-                            <!-- <button action="del/{{bug.id}}"><a>Delete</a></button> -->
-                            <form action="del/<int:pk>" method="POST">
-                                {% csrf_token %}
-                                <center>
-                                    <input type="submit" class="btn btn-default" value="submit" />
-                                </center>
+                            <form action="/del/{{bug.id}}/" method="post">{% csrf_token %}
+                                <input type="submit" value="Delete">
                             </form>
-                            <!-- <form action="/del/" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
-                                {% csrf_token %}
-                                <button value="remove" type="submit" class="btn btn-primary" style="float: right;"><span
-                                        class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
-                            </form> -->
                         </div>
                         {% endfor%}
 

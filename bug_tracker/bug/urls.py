@@ -17,5 +17,5 @@ urlpatterns = [
         name="logout",
     ),
     path("addBug/", views.add),
-    path("del/<int:pk>", views.remove, name="del"),
+    path("del/<int:i>/", views.delete, name="delete"),
 ]

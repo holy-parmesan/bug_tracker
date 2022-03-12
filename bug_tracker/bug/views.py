@@ -24,9 +24,9 @@ def add(request):
     return render(request, "bug/home.html", context=mydict)
 
 
-def remove(request, pk):
-    item = bug.objects.get(id=pk)
-    item = request.POST[item]
+def delete(request, i):
+    item = bug.objects.get(id=i)
+    # item = request.POST[item]
     item.delete()
     mydict = {"todo_list": bug.objects.all()}
     messages.info(request, "item removed!!!")
