@@ -9,19 +9,21 @@ from .models import bug
 
 
 def home(request):
-    todo_list = bug.objects.all()
     form = BugForm()
     if request.method == "POST":
         form = BugForm(request.POST)
         if form.is_valid():
             form.save
             return redirect("/")
-    page = {
-        "forms": form,
-        "list": todo_list,
-        "title": "TODO LIST",
-    }
-    return render(request, "bug/home.html", page)
+    todo_list = bug.objects.all()
+    return render(
+        request,
+        "bug/home.html",
+        {
+            "forms": form,
+            "todo_list": todo_list,
+        },
+    )
 
 
 def add(request):
@@ -30,18 +32,15 @@ def add(request):
     obj.date = request.POST["date"]
     obj.body = request.POST["body"]
     obj.save()
-    mydict = {"todo_list": bug.objects.all()}
     messages.info(request, "item added!!!")
-    return render(request, "bug/home.html", context=mydict)
+    return redirect("/")
 
 
 def delete(request, i):
     item = bug.objects.get(id=i)
-    # item = request.POST[item]
     item.delete()
-    mydict = {"todo_list": bug.objects.all()}
     messages.info(request, "item removed!!!")
-    return render(request, "bug/home.html", context=mydict)
+    return redirect("/")
 
 
 def register(request):
